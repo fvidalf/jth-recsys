@@ -1,0 +1,3 @@
+[submodule "external/JTH"]
+	path = external/JTH
+	url = https://github.com/Aunsiels/JTH

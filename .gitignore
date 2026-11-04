@@ -1,0 +1,30 @@
+# papers and course PDFs (kept locally in docs/, not ours to redistribute)
+*.pdf
+
+# data: CC BY-NC 4.0, download with scripts/download_data.py
+data/
+
+# environment / caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.env
+.DS_Store
+
+# personal agent settings (shared ones go in .claude/settings.json)
+.claude/settings.local.json
+
+# report figures and LaTeX tables: regenerate with the scripts (see AGENTS.md)
+figures/
+results/tabla_*.tex
+
+# heavy run artifacts: regenerate with scripts/run_upstream.sh
+*.pkl.gz
+results/runs/
+results/upstream/features.csv
+
+# runs on our own day-boundary split: kept locally, not reported
+results/baselines_test.csv
+results/baselines_val.csv

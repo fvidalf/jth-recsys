@@ -1,0 +1,35 @@
+Feedback H1 (Propuesta), Grupo 5. Recibido después de la entrega del 9 oct. 2026.
+
+=== Detalle de ítems ===
+Descripción + justificación: 9 / 10
+Objetivos Proyecto (propuesta solucion): 23 / 25
+Análisis descriptivo: 10 / 15
+Implementación: Random, Most Popular y otro asociado al proyecto: 15 / 15
+Planificación: fechas, métodos y criterios evaluación: 24 / 25
+Bibliografía relevante: 10 / 10
+
+Puntaje total: 91 / 100
+
+=== Descuentos ===
+Descuento (atraso/tamaño de documento, otros): -0,5
+
+Nota: 6
+
+=== Comentario general ===
+Muy buena motivación e introducción. Queda claro por qué la recomendación de empleo es distinta (ofertas y candidatos de vida corta, cold-start permanente y una matriz muy dispersa) y por qué datasets como MovieLens o los que solo registran postulaciones no sirven para estudiarla. Además se resume bien lo que muestra el paper de JTH. Les descuento un poco porque la formulación de la tarea queda implícita en el paper base: no se define qué cuenta como oferta "correcta" (¿qué etapa del proceso se considera positiva?), cuál es el conjunto de candidatos de cada día ni el K de evaluación.
+
+Los objetivos son claros y cercanos a lo que se espera del curso: superar al mejor modelo del paper bajo su mismo protocolo, modelar la vigencia de las ofertas y cuantificar el aporte de cada componente. Quedan bien fundamentados con los datos, por ejemplo con que el 92 % de las ofertas correctas tenía actividad en los 30 días previos. Sin embargo, dependen mucho de superar al paper base y no especifican qué métodos propios implementarán para lograrlo, por lo que les descuento un poco.
+
+Respecto al análisis descriptivo, se entrega una tabla comparando train y test, con la densidad, el 80,5 % de candidatos nuevos en test y la distribución de interacciones por candidato y por oferta, que muestra una cola larga. Les descuento porque varias cifras que sostienen la propuesta (el 92 % de ofertas con interacciones recientes, el 95 % vs. 39 % de ofertas y candidatos con historial) se mencionan sin una tabla ni una figura. Como el argumento central es temporal, faltó mostrar la dinámica en el tiempo, por ejemplo la distribución de la vida de ofertas y candidatos o el volumen de interacciones por semana. Además, no comentan qué implican los resultados de su análisis para el problema ni para el entrenamiento de los modelos; faltó desarrollar más esta sección.
+
+En cuanto a los baselines, se incluyen Random, Most Popular y tres modelos del paper: recencia, CF + recencia y regresión logística. Destaco que separen el MRR entre candidatos con historial y nuevos, ya que muestra por qué los modelos son complementarios. Los resultados se obtienen de ejecutar el código oficial del paper, y todos los modelos son del paper; no se propone un baseline propio. En la sección 2 se citan los MRR del paper (0,283 y 0,119) y en la sección 4 los de su réplica (0,286 y 0,114); aclaren siempre a cuál se refieren.
+
+En relación con la planificación, se incluyen fechas semana a semana, qué se implementa en cada una y cómo se evalúa, además de un criterio de éxito claro: superar a la regresión logística y cuantificar el aporte de cada componente. Lo propuesto se ve alcanzable, aunque les descuento un poco porque se desarrolla poco en qué consiste cada método.
+
+Se incluye bibliografía relevante, citando el paper base, el dataset, el trabajo previo del grupo, el contexto de recomendación y el blending. Como sugerencia, complementen con otros trabajos recientes de recomendación de empleo y cold-start.
+
+Se agregó un descuento por no haber presentado el código. Es importante que en todas las entregas agreguen el link al GitHub que estén trabajando o que entreguen el código dentro de Canvas.
+
+A continuación les dejo algunos comentarios generales. En primer lugar, para la siguiente entrega formulen explícitamente la tarea, por ejemplo: "dado un candidato en el día t, rankear las ofertas vigentes en t, siendo relevante aquella en la que alcanzó la etapa X, evaluando con MRR y nDCG@10". En segundo lugar, agreguen al menos un gráfico temporal que respalde que la vigencia domina la señal. En tercer lugar, como el test tiene 8.458 interacciones, sería bueno reportar intervalos de confianza y no solo el MRR. En cuarto lugar, agreguen al menos un baseline propio del proyecto, además de los del paper. Finalmente, para la etapa 2, partan con un baseline simple de perfil de oferta (promedio de atributos de candidatos recientes) antes de pasar a la versión secuencial.
+
+Se ve una propuesta muy interesante, espero que les siga yendo bien en sus siguientes entregas! :)

@@ -1,0 +1,19 @@
+mode,baseline,MRR,NDCG@10,R@10
+c2j,Random,0.001,0.001,0.002
+c2j,Popularity,0.004,0.001,0.003
+c2j,Pop. + recency,0.086,0.094,0.182
+c2j,Past temporal,0.057,0.052,0.117
+c2j,User-based CF,0.058,0.064,0.096
+c2j,CF + recency,0.119,0.120,0.170
+c2j,Jaccard,0.019,0.019,0.038
+c2j,Logistic reg.,0.283,0.325,0.503
+c2j,Random forest,0.256,0.301,0.491
+j2c,Random,0.000,0.000,0.000
+j2c,Popularity,0.006,0.007,0.012
+j2c,Pop. + recency,0.015,0.016,0.027
+j2c,Past temporal,0.019,0.007,0.023
+j2c,User-based CF,0.011,0.013,0.027
+j2c,CF + recency,0.009,0.009,0.018
+j2c,Jaccard,0.005,0.004,0.008
+j2c,Logistic reg.,0.038,0.044,0.081
+j2c,Random forest,0.078,0.091,0.169

@@ -1,0 +1,190 @@
+% Verified references we have not cited yet: a pool for the midterm and the paper.
+% Cited ones live in recsys.bib; move an entry there when the report cites it.
+% [V] = checked against Crossref or the publisher. [M] = from memory, check before citing.
+% Untagged entries were checked against Crossref on 2026-10-09.
+
+% ---- Datasets compared in the JTH paper ------------------------------------
+
+% [M]
+@inproceedings{bennett_netflix_2007,
+  title     = {The {Netflix} Prize},
+  author    = {Bennett, James and Lanning, Stan},
+  booktitle = {Proceedings of KDD Cup and Workshop 2007},
+  year      = {2007}
+}
+
+% [V]
+@inproceedings{cho_friendship_2011,
+  title     = {Friendship and Mobility: User Movement in Location-Based Social Networks},
+  author    = {Cho, Eunjoon and Myers, Seth A. and Leskovec, Jure},
+  booktitle = {Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  pages     = {1082--1090},
+  year      = {2011},
+  doi       = {10.1145/2020408.2020579}
+}
+
+% [V] (as cited by JTH)
+@misc{yelp_open_dataset,
+  title        = {Yelp Open Dataset},
+  author       = {{Yelp}},
+  year         = {2019},
+  howpublished = {\url{https://business.yelp.com/data/resources/open-dataset/}}
+}
+
+% [V]
+@inproceedings{ben-shimon_recsys_2015,
+  title     = {{RecSys} Challenge 2015 and the {YOOCHOOSE} Dataset},
+  author    = {Ben-Shimon, David and Tsikinovsky, Alexander and Friedmann, Michael and Shapira, Bracha and Rokach, Lior and Hoerle, Johannes},
+  booktitle = {Proceedings of the 9th ACM Conference on Recommender Systems},
+  pages     = {357--358},
+  year      = {2015},
+  doi       = {10.1145/2792838.2798723}
+}
+
+% [V] XING job-recommendation data (RecSys Challenge 2017); no longer distributed.
+@inproceedings{abel_recsys_2017,
+  title     = {{RecSys} Challenge 2017: Offline and Online Evaluation},
+  author    = {Abel, Fabian and Deldjoo, Yashar and Elahi, Mehdi and Kohlsdorf, Daniel},
+  booktitle = {Proceedings of the 11th ACM Conference on Recommender Systems},
+  pages     = {372--373},
+  year      = {2017},
+  doi       = {10.1145/3109859.3109954}
+}
+
+% ---- Job recommendation and person-job fit ---------------------------------
+
+% [V] = verified against Crossref / publisher / official listing in this session.
+% [M] = standard reference, details from memory -- double-check before submitting.
+% [V] CEUR-WS Vol-3490 (RecSys in HR 2023 workshop). No DOI (CEUR).
+@inproceedings{behar_tackling_2023,
+  title     = {Tackling Cold Start for Job Recommendation with Heterogeneous Graphs},
+  author    = {Behar, Eric and Romero, Julien and Bouzeghoub, Amel and Wegrzyn-Wolska, Katarzyna},
+  booktitle = {Proceedings of the 3rd Workshop on Recommender Systems for Human Resources (RecSys in HR 2023), co-located with the 17th ACM Conference on Recommender Systems},
+  series    = {CEUR Workshop Proceedings},
+  volume    = {3490},
+  address   = {Singapore},
+  year      = {2023},
+  url       = {https://ceur-ws.org/Vol-3490/RecSysHR2023-paper_9.pdf}
+}
+
+% [V]
+@article{freire_e-recruitment_2021,
+  title   = {e-Recruitment Recommender Systems: A Systematic Review},
+  author  = {Freire, Mauricio Noris and de Castro, Leandro Nunes},
+  journal = {Knowledge and Information Systems},
+  volume  = {63},
+  number  = {1},
+  pages   = {1--20},
+  year    = {2021},
+  doi     = {10.1007/s10115-020-01522-8}
+}
+
+% [V]
+@article{qin_enhanced_2020,
+  title   = {An Enhanced Neural Network Approach to Person-Job Fit in Talent Recruitment},
+  author  = {Qin, Chuan and Zhu, Hengshu and Xu, Tong and Zhu, Chen and Ma, Chao and Chen, Enhong and Xiong, Hui},
+  journal = {ACM Transactions on Information Systems},
+  volume  = {38},
+  pages   = {1--33},
+  year    = {2020},
+  doi     = {10.1145/3376927}
+}
+
+% [V]
+@inproceedings{yang_modeling_2022,
+  title     = {Modeling Two-Way Selection Preference for Person-Job Fit},
+  author    = {Yang, Chen and Hou, Yupeng and Song, Yang and Zhang, Tao and Wen, Ji-Rong and Zhao, Wayne Xin},
+  booktitle = {Proceedings of the 16th ACM Conference on Recommender Systems},
+  pages     = {102--112},
+  year      = {2022},
+  doi       = {10.1145/3523227.3546752}
+}
+
+% [V]
+@inproceedings{wu_exploring_2024,
+  title     = {Exploring Large Language Model for Graph Data Understanding in Online Job Recommendations},
+  author    = {Wu, Likang and Qiu, Zhaopeng and Zheng, Zhi and Zhu, Hengshu and Chen, Enhong},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume    = {38},
+  number    = {8},
+  year      = {2024},
+  doi       = {10.1609/aaai.v38i8.28769}
+}
+
+% ---- Cold start and temporal dynamics --------------------------------------
+
+% [V]
+@inproceedings{schein_methods_2002,
+  title     = {Methods and Metrics for Cold-Start Recommendations},
+  author    = {Schein, Andrew I. and Popescul, Alexandrin and Ungar, Lyle H. and Pennock, David M.},
+  booktitle = {Proceedings of the 25th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  pages     = {253--260},
+  year      = {2002},
+  doi       = {10.1145/564376.564421}
+}
+
+% [M] KDD version (the one JTH cites). Crossref also lists the CACM 2010 version: 10.1145/1721654.1721677.
+@inproceedings{koren_collaborative_2009,
+  title     = {Collaborative Filtering with Temporal Dynamics},
+  author    = {Koren, Yehuda},
+  booktitle = {Proceedings of the 15th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  pages     = {447--456},
+  year      = {2009},
+  doi       = {10.1145/1557019.1557072}
+}
+
+% Temporal interaction networks (JODIE): dynamic item embeddings from the event stream.
+@inproceedings{kumar_predicting_2019,
+  title     = {Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks},
+  author    = {Kumar, Srijan and Zhang, Xikun and Leskovec, Jure},
+  booktitle = {Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+  pages     = {1269--1278},
+  year      = {2019},
+  doi       = {10.1145/3292500.3330895}
+}
+
+% ---- Context, hybrids and ensembles ----------------------------------------
+
+@article{adomavicius_incorporating_2005,
+  title   = {Incorporating Contextual Information in Recommender Systems Using a Multidimensional Approach},
+  author  = {Adomavicius, Gediminas and Sankaranarayanan, Ramesh and Sen, Shahana and Tuzhilin, Alexander},
+  journal = {ACM Transactions on Information Systems},
+  volume  = {23},
+  number  = {1},
+  pages   = {103--145},
+  year    = {2005},
+  doi     = {10.1145/1055709.1055714}
+}
+
+% Hybrid taxonomy (weighted, switching, cascade, meta-level, ...).
+@article{burke_hybrid_2002,
+  title   = {Hybrid Recommender Systems: Survey and Experiments},
+  author  = {Burke, Robin},
+  journal = {User Modeling and User-Adapted Interaction},
+  volume  = {12},
+  number  = {4},
+  pages   = {331--370},
+  year    = {2002},
+  doi     = {10.1023/A:1021240730564}
+}
+
+@article{wolpert_stacked_1992,
+  title   = {Stacked Generalization},
+  author  = {Wolpert, David H.},
+  journal = {Neural Networks},
+  volume  = {5},
+  number  = {2},
+  pages   = {241--259},
+  year    = {1992},
+  doi     = {10.1016/S0893-6080(05)80023-1}
+}
+
+% Training-free rank fusion (simple first ensemble).
+@inproceedings{cormack_reciprocal_2009,
+  title     = {Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods},
+  author    = {Cormack, Gordon V. and Clarke, Charles L. A. and B{\"u}ttcher, Stefan},
+  booktitle = {Proceedings of the 32nd International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  pages     = {758--759},
+  year      = {2009},
+  doi       = {10.1145/1571941.1572114}
+}
