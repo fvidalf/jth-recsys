@@ -164,6 +164,11 @@ def lr_activity_model(log_activity: np.ndarray, lam: float) -> Scorer:
     return lambda v: (_finite(log_lr(v) + lam * log_activity[v.day], v.eligible), v.eligible)
 
 
+def normalized_activity_model(base, log_activity: np.ndarray, lam: float) -> Scorer:
+    """For scores that aren't probabilities: log of [eps, 1]-normalized score + lambda * log P(activity)."""
+    return lambda v: (_finite(np.log(minmax_rows(base(v), v.eligible)) + lam * log_activity[v.day], v.eligible), v.eligible)
+
+
 # ------------------------------------------------------------------ blends
 def alpha_of(v, alpha, gate: bool):
     """Weight of LR per query: global, gated by history, or one per history bin (dict)."""
@@ -284,7 +289,7 @@ class Registry:
     def table(self, name: str, mask=None) -> pd.DataFrame:
         out = []
         for r in self.family(name):
-            out.append({**summarize_ranks(self.ctx, r["ranks"], mask), **r["config"]})
+            out.append({**r["config"], **summarize_ranks(self.ctx, r["ranks"], mask)})
         return pd.DataFrame(out)
 
     def best(self, name: str, mask=None) -> dict:

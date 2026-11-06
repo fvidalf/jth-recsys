@@ -9,9 +9,16 @@ Exits with status 1 on any difference.
 Gate modes:
   full      all text outputs must match.
   displays  tables and markdown must match; printed lines are ignored.
-  skip      not compared. Environment table (cell 3), the run-information table without its
-            timings (cell 33, which asserts the same counts), file hashes (cell 46, code files
-            differ only by CRLF), and the runner cell (58), whose job moved to a script.
+  no_markdown  printed lines and tables must match. Its markdown output became markdown cells
+            with the same numbers (cells 40, 55, 70, 74 and 76).
+  skip      not compared. Environment table (cell 3), the run-information table without
+            its timings (cell 33, which asserts the same counts) and the findings table
+            (cell 116, reworded, with its computed evidence unchanged).
+
+Tables are compared by column name, so moving a column doesn't count as a change.
+
+Code cells of the original left out of v2 on purpose are listed in REMOVED. Only cells 14 and 64
+used real data: 14 counted test rows and 64 built the state now in src/jth/activity.py. The invented-data checks moved to tests/test_stage1.py.
 """
 from __future__ import annotations
 
@@ -24,8 +31,26 @@ ROOT = Path(__file__).resolve().parents[1]
 V1 = ROOT / "scripts" / "01_datos_y_validacion.ipynb"
 V2 = ROOT / "scripts" / "01_datos_y_validacion_v2.ipynb"
 
+REMOVED = {
+    14: "invented example and a count of test rows against queries, trimmed by hand",
+    64: "daily state code, moved to src/jth/activity.py; its status line asserted nothing",
+    27: "invented Recency example (tests/test_stage1.py)",
+    29: "invented metric contributions (tests/test_stage1.py)",
+    31: "invented evaluator check (tests/test_stage1.py)",
+    44: "invented prediction format check (tests/test_stage1.py)",
+    46: "file hashes and a status table from a past working session",
+    51: "invented tie-break check (tests/test_stage1.py)",
+    58: "reference runner, moved to scripts/run_references.py",
+}
+
+IGNORED_COLUMNS = {"Orden", "Perfiles con valor"}  # removed from cell 66, added to cell 95
+
 VOLATILE = [
-    (re.compile(r"tardó \*\*[\d.,]+ s\*\*"), "tardó X s"),  # timing
+    (re.compile(r'"tipo": "suave"'), '"tipo": "suave fijo"'),  # renamed in v2
+    (re.compile(r"Fusión LR-CF"), "Fusión de rangos (RRF)"),  # renamed in v2
+    (re.compile(r"LR \+ suave(?! fijo)"), "LR + suave fijo"),  # renamed in v2
+    (re.compile(r"<td>suave</td>"), "<td>suave fijo</td>"),  # renamed in v2
+    (re.compile(r"Actividad propia"), "Popularidad reciente"),  # renamed in v2
     (re.compile(r'"cache_referencias": "[^"]*"'), '"cache_referencias": "X"'),  # machine-specific path
     (re.compile(r"<Figure size [^>]*>"), "<Figure>"),
     (re.compile(r"<Axes[^>]*>"), "<Axes>"),
@@ -39,19 +64,37 @@ def clean(text: str) -> str:
     return text.strip()
 
 
+def table_by_name(text: str) -> str:
+    """A simple HTML table as text, with columns sorted by name, so order doesn't matter."""
+    if "</thead>" not in text:
+        return text
+    head, body = text.split("</thead>", 1)
+    if head.count("<tr") != 1:
+        return text
+    names = re.findall(r"<th[^>]*>([^<]*)</th>", head)[1:]
+    rows = [re.findall(r"<td>([^<]*)</td>", r) for r in re.findall(r"<tr>\s*<th>[^<]*</th>(.*?)</tr>", body, re.S)]
+    if not rows or any(len(r) != len(names) for r in rows):
+        return text
+    columns = sorted((n, tuple(r[k] for r in rows)) for k, n in enumerate(names) if n not in IGNORED_COLUMNS)
+    return "\n".join(f"{n}: {' | '.join(v)}" for n, v in columns)
+
+
 def outputs(cell: dict, mode: str) -> list[str]:
     out = []
     for o in cell.get("outputs", []):
         if o["output_type"] == "stream":
-            if mode == "full" and o.get("name") == "stdout":
+            if mode in ("full", "no_markdown") and o.get("name") == "stdout":
                 out.append(clean("".join(o["text"])))
         elif o["output_type"] in ("display_data", "execute_result"):
             data = o.get("data", {})
             if "image/png" in data:
                 continue
-            for key in ("text/markdown", "text/plain"):
+            if mode == "no_markdown" and "text/markdown" in data:
+                continue
+            for key in ("text/markdown", "text/html", "text/plain"):  # html: tables without line wrapping
                 if key in data:
-                    out.append(clean("".join(data[key])))
+                    text = clean("".join(data[key]))
+                    out.append(table_by_name(text) if key == "text/html" else text)
                     break
         elif o["output_type"] == "error":
             out.append(f"ERROR {o.get('ename')}: {o.get('evalue')}")
@@ -77,9 +120,12 @@ def main() -> int:
         compared += 1
         if a != b:
             failures.append((i, a, b))
-    missing = [i for i, c in enumerate(v1) if c["cell_type"] == "code" and i not in seen]
+    missing = [i for i, c in enumerate(v1) if c["cell_type"] == "code" and i not in seen and i not in REMOVED]
+    unexpected = sorted(seen & set(REMOVED))
 
-    print(f"Code cells compared: {compared}. Not compared by design: {skipped}. Missing from v2: {missing}.")
+    print(f"Code cells compared: {compared}. Not compared by design: {skipped}. Missing from v2: {missing or 'none'}.")
+    print(f"Removed on purpose: {sorted(REMOVED)}.")
+    missing += unexpected
     print(f"Cells with errors: {errors or 'none'}.")
     for i, a, b in failures:
         print(f"\n=== cell {i}: outputs differ ({len(a)} in v1, {len(b)} in v2)")

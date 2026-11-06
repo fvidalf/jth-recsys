@@ -300,6 +300,56 @@ def test_fwls_fit_and_score_run_on_chunks():
     assert len(inp.ranks(fwls_scorer(w, True))) == len(ctx)
 
 
+# ---------------------------------------------------------------- moved from the notebook
+def test_tie_break_and_excluded_job():
+    ctx = ctx_of(["2020-01-01"] * 4, [("a", "2020-01-10")], [0])
+    ctx.tie = np.array([0.8, 0.2, 0.5, 0.1])
+    order = rank_scores(ctx, np.array([0.7, 0.7, 0.0, 9.0]), np.array([True, True, True, False]))
+    assert order.tolist() == [1, 0, 2]  # tie broken by priority, excluded job left out despite its score
+
+
+def test_metric_contribution_of_each_position():
+    d = detail_from_ranks(np.array([1.0, 3.0, 10.0, 11.0, np.inf]))
+    assert np.isclose(d["RR"][1], 1 / 3) and d["RR"][4] == 0
+    assert d["nDCG"][1] == 0.5 and d["nDCG"][3] == 0
+    assert d["HR10"].tolist() == [1, 1, 1, 0, 0]
+
+
+def official_evaluator():
+    import pytest
+    from pathlib import Path
+    from jth.context import load_official_evaluator
+    repo = Path(__file__).resolve().parents[1]
+    if not (repo / "external/JTH/code/utils/evaluator.py").exists():
+        pytest.skip("submodule not initialized")
+    return load_official_evaluator(repo)
+
+
+def test_official_evaluator_on_invented_cases():
+    import random
+    ev = official_evaluator()
+    gold = {("A", "2020-01-10"): "oferta_A", ("A", "2020-01-11"): "oferta_B", ("B", "2020-01-11"): "oferta_C"}
+    preds = {("A", "2020-01-10"): ["oferta_futura", "oferta_C", "oferta_B", "oferta_A"], ("A", "2020-01-11"): ["oferta_B"]}
+    dates = {"oferta_A": "2020-01-01", "oferta_B": "2020-01-05", "oferta_C": "2020-01-09", "oferta_futura": "2020-01-12"}
+    random.seed(42)
+    tables, _, mrr, n = ev.compute_metrics(gold, preds, [10], dates, set())
+    # Third after the future job is dropped, first, and a query without predictions that still counts.
+    assert n == {"all": 3, "warm": 1, "cold": 2}  # A moves from new to known on its second day
+    assert np.isclose(mrr["all"], (1 / 3 + 1 + 0) / 3)
+    assert np.isclose(tables["all"].iloc[0]["NDCG@K"], 0.5)
+
+
+def test_official_reader_accepts_our_prediction_format(tmp_path):
+    import gzip
+    import json
+    import pickle
+    ev = official_evaluator()
+    path = tmp_path / "toy_c2j.pkl.gz"
+    with gzip.open(path, "wb") as f:
+        pickle.dump({json.dumps(["candidato_demo", "2020-01-10"]): ["oferta_A", "oferta_B"]}, f)
+    assert ev.load_preds(path)[("candidato_demo", "2020-01-10")].tolist() == ["oferta_A", "oferta_B"]
+
+
 # ---------------------------------------------------------------- bootstrap
 def test_bootstrap_is_paired_and_covers_a_known_mean():
     days = np.datetime64("2020-01-01") + np.arange(140).astype("timedelta64[D]")
@@ -313,3 +363,21 @@ def test_bootstrap_is_paired_and_covers_a_known_mean():
 def test_detail_handles_missing_ranks():
     d = detail_from_ranks(np.array([1.0, np.inf]))
     assert d["RR"].tolist() == [1.0, 0.0] and d["HR10"].tolist() == [1.0, 0.0]
+
+
+def test_normalized_activity_model_weighs_log_activity():
+    from types import SimpleNamespace
+
+    from jth import systems as sis
+
+    view = SimpleNamespace(day=np.array([0]), eligible=np.array([[True, True, False]]))
+    flat = lambda _: np.array([[2.0, 2.0, 2.0]])  # noqa: E731
+    rising = lambda _: np.array([[0.0, 1.0, 9.0]])  # noqa: E731
+    log_activity = np.log(np.array([[0.9, 0.1, 0.5]]))
+
+    scores, mask = sis.normalized_activity_model(flat, log_activity, 0.5)(view)
+    assert mask.tolist() == [[True, True, False]]
+    assert scores[0, 0] > scores[0, 1]  # a constant base leaves only the activity term
+
+    scores, _ = sis.normalized_activity_model(rising, log_activity, 0.0)(view)
+    assert scores[0, 1] > scores[0, 0]  # lambda 0 leaves only the base
