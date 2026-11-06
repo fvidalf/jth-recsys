@@ -1,0 +1,7 @@
+Variante,Control,ΔMRR,ΔMRR warm,ΔMRR cold
+Contenido,Recencia,0.011652,-0.009734,0.022872
+LR elegible,LR oficial,0.000000,0.000000,0.000000
+LR + duro,LR elegible,0.045836,0.055574,0.040727
+LR + suave,LR elegible,0.069534,0.082977,0.062482
+Fusión LR-CF,LR oficial,0.020222,0.058765,0.000000
+Fusión + actividad,Fusión LR-CF,0.057553,0.055923,0.058407

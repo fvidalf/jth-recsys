@@ -1,0 +1,6 @@
+archivo,celda,afirmacion,marcador
+figures/fig_validacion_timeline.png,24,"Bloques de entrenamiento reducido, validación y test, y volumen mensual de procesos",Línea de tiempo de los datos
+figures/fig_antiguedad_positivo.png,41,"El acierto se concentra en ofertas recientes, así que la vigencia domina la señal",Aciertos top-10 por antigüedad
+figures/fig_filtro_actividad.png,71,"MRR y cobertura del filtro por actividad según la ventana, frente al peso suave",Filtro duro sobre LR
+figures/fig_comparacion_modelos.png,77,MRR y nDCG@10 de cada modelo y su corte entre candidatos con y sin historial,Referencias y mejores variantes
+figures/fig_contenido_vs_recencia.png,56,"El baseline propio de contenido frente a Recencia, antes de la regresión logística",Temporalidad frente a

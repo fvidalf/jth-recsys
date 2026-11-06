@@ -37,10 +37,32 @@ the figures and tables by the scripts in the table below.
 | Figures | `uv run python scripts/figuras.py` | `figures/fig_*.png`, `results/tabla_cobertura.tex` |
 | Our baselines on the official split | `uv run python scripts/run_baselines.py --split upstream` | `results/baselines_upstream.csv` |
 | Paper vs official re-run vs ours | `uv run python scripts/compare.py` | `results/comparison.md` |
+| Validation results (midterm notebook) | `uv run python scripts/resultados_validacion.py` | `results/validacion_*.csv`, `results/tabla_componentes.tex`, `results/tabla_aportes.tex` |
+| Validation figures (midterm notebook) | `uv run python scripts/figuras_notebook.py` | `figures/fig_*.png`, `results/figuras_notebook.csv` |
 | Tests | `uv run pytest` | |
 
 `run_baselines.py --split test|val` runs our own day-boundary split. Those runs are kept
 out of git because nothing we report uses them.
+
+## Validation notebook (midterm)
+
+`scripts/01_datos_y_validacion.ipynb` is where the midterm numbers come from. It reserves the
+last 12.51 % of the official training period as a pseudo-test (cut at 2023-07-21, so 29.599
+training processes, 4.231 validation processes and 4.208 queries), and on that slice it runs
+the official Recency, the official logistic regression, the official CF + recency, our
+TF-IDF content baseline, the hard and soft activity filters, and the rank fusion. Nothing in
+it touches test.
+
+Its **outputs are committed**, so the tables can be read without the data. The two scripts
+above copy those outputs into `results/` and `figures/`; they only need the notebook, not
+`data/` and not `external/JTH`. To re-run the notebook itself you need both, plus `uv sync`.
+
+Two caveats that the report must state. First, the winning configuration was chosen among 51
+configurations evaluated on the same validation queries where the confidence intervals are
+computed, so those intervals are optimistic and do not correct for the search. Second, the
+validation period sits next to the training period and is easier than test (logistic
+regression scores 0.316 MRR there against 0.286 on test), so the size of the gains will not
+transfer unchanged.
 
 ## Layout
 
@@ -50,10 +72,11 @@ src/jth/evaluation.py    our streaming evaluator + metrics (cross-check of the o
 src/jth/features.py      skill / area / category tokens shared by both sides
 src/jth/models.py        Random, MostPop, Recency, PopRecency, ItemKNN, ContentTFIDF
 scripts/                 entry points (table above)
+scripts/01_datos_y_validacion.ipynb  validation notebook behind the midterm numbers
 tests/                   metric formulas, no-leakage and catalog-filter checks
 external/JTH/            official code (submodule, pinned, untouched)
 results/                 result summaries (.csv/.md); .tex tables and prediction files are git-ignored
-figures/                 report figures (git-ignored, from scripts/figuras.py)
+figures/                 report figures (git-ignored, from scripts/figuras.py and figuras_notebook.py)
 references/              recsys.bib (cited in the report), candidatas.bib (verified, not yet cited)
 docs/                    course feedback, report style guide; local PDFs (git-ignored)
 ```

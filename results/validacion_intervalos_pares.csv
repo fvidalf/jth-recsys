@@ -1,0 +1,8 @@
+Variante,Control,ΔMRR,IC95 inferior,IC95 superior
+Contenido,Recencia,0.011652,0.003575,0.019209
+LR elegible,LR oficial,0.000000,0.000000,0.000001
+LR + duro,LR elegible,0.045836,0.037710,0.054150
+LR + suave,LR elegible,0.069534,0.062237,0.076698
+Fusión LR-CF,LR oficial,0.020222,0.011425,0.029403
+Fusión + actividad,Fusión LR-CF,0.057553,0.050442,0.065240
+Fusión + actividad,LR + suave,0.008240,-0.000214,0.017966

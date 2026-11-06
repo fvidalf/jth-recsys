@@ -1,0 +1,11 @@
+Modelo,ΔMRR vs LR oficial,IC95 inferior,IC95 superior
+Recencia,-0.266899,-0.284348,-0.250128
+Contenido,-0.255247,-0.273551,-0.237570
+LR oficial,0.000000,0.000000,0.000000
+CF + recencia oficial,-0.200154,-0.226545,-0.173310
+LR elegible,0.000000,0.000000,0.000001
+Actividad propia,-0.112771,-0.131810,-0.094988
+LR + duro,0.045837,0.037710,0.054151
+LR + suave,0.069534,0.062237,0.076698
+Fusión LR-CF,0.020222,0.011425,0.029403
+Fusión + actividad,0.077774,0.065079,0.090898

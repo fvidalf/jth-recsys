@@ -114,9 +114,12 @@ These keep our numbers comparable with the paper. Do not break them without the 
   | `results/tabla_baselines.tex` | `uv run python scripts/make_table.py` | `results/upstream/results.csv` (tracked) |
   | `results/tabla_datos.tex` | `uv run python scripts/estadisticas.py` | `data/raw/` + `data/upstream_split/` |
   | `figures/fig_*.png`, `results/tabla_cobertura.tex` | `uv run python scripts/figuras.py` | `data/raw/` + `data/upstream_split/` |
+  | `results/tabla_componentes.tex`, `results/tabla_aportes.tex`, `results/validacion_*.csv` | `uv run python scripts/resultados_validacion.py` | `scripts/01_datos_y_validacion.ipynb` (tracked) |
+  | `figures/fig_*.png`, `results/figuras_notebook.csv` | `uv run python scripts/figuras_notebook.py` | `scripts/01_datos_y_validacion.ipynb` (tracked) |
 
   `data/upstream_split/` is written by the first step of `run_upstream.sh`. To change an
-  output, edit its script and rerun it.
+  output, edit its script and rerun it. The two notebook scripts read the outputs committed
+  in the notebook, so they need neither the data nor the submodule.
 - **Figures** are simple matplotlib with Spanish titles and axis labels. Thousands use a dot
   and decimals use a comma.
 - **Tables** use booktabs and float as `[htbp]`.
