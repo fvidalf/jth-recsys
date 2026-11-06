@@ -1,0 +1,237 @@
+{
+  "decision": "Elegido en validación antes de ejecutar test. No se modifica después de ver test.",
+  "configuraciones_probadas": 335,
+  "seleccion_v2": [
+    {
+      "Familia": "TF-IDF + suave aprendido",
+      "MRR P2": 0.45863
+    },
+    {
+      "Familia": "TF-IDF + suave fijo",
+      "MRR P2": 0.45549
+    },
+    {
+      "Familia": "TF-IDF + duro",
+      "MRR P2": 0.43196
+    },
+    {
+      "Familia": "Mezcla por historial, filtro después",
+      "MRR P2": 0.40361
+    },
+    {
+      "Familia": "Mezcla ponderada, ajuste conjunto",
+      "MRR P2": 0.40217
+    },
+    {
+      "Familia": "Mezcla ponderada, filtro después",
+      "MRR P2": 0.40217
+    },
+    {
+      "Familia": "Mezcla ponderada, filtro antes",
+      "MRR P2": 0.40024
+    },
+    {
+      "Familia": "RRF, filtro antes",
+      "MRR P2": 0.37962
+    },
+    {
+      "Familia": "RRF, ajuste conjunto",
+      "MRR P2": 0.37511
+    },
+    {
+      "Familia": "LR + suave fijo (original)",
+      "MRR P2": 0.37368
+    },
+    {
+      "Familia": "Fusión + actividad (α de P1)",
+      "MRR P2": 0.37318
+    },
+    {
+      "Familia": "Mezcla aprendida + actividad",
+      "MRR P2": 0.36626
+    },
+    {
+      "Familia": "LR + suave aprendido",
+      "MRR P2": 0.36471
+    },
+    {
+      "Familia": "LR + duro (original)",
+      "MRR P2": 0.35733
+    },
+    {
+      "Familia": "Mezcla aprendida",
+      "MRR P2": 0.34681
+    },
+    {
+      "Familia": "Mezcla por historial",
+      "MRR P2": 0.34645
+    },
+    {
+      "Familia": "Mezcla ponderada",
+      "MRR P2": 0.34513
+    },
+    {
+      "Familia": "RRF con CF limpio",
+      "MRR P2": 0.31989
+    },
+    {
+      "Familia": "Fusión de rangos (RRF)",
+      "MRR P2": 0.31904
+    },
+    {
+      "Familia": "CF limpio + suave aprendido",
+      "MRR P2": 0.2255
+    },
+    {
+      "Familia": "Recencia + suave aprendido",
+      "MRR P2": 0.17367
+    },
+    {
+      "Familia": "CF limpio + suave fijo",
+      "MRR P2": 0.14913
+    },
+    {
+      "Familia": "CF limpio + duro",
+      "MRR P2": 0.1483
+    },
+    {
+      "Familia": "Most Popular + suave aprendido",
+      "MRR P2": 0.1326
+    },
+    {
+      "Familia": "Most Popular + suave fijo",
+      "MRR P2": 0.12398
+    },
+    {
+      "Familia": "Most Popular + duro",
+      "MRR P2": 0.11358
+    },
+    {
+      "Familia": "Recencia + suave fijo",
+      "MRR P2": 0.07548
+    },
+    {
+      "Familia": "Recencia + duro",
+      "MRR P2": 0.06233
+    }
+  ],
+  "finalistas": {
+    "LR + suave fijo": {
+      "familia": "LR + suave fijo (original)",
+      "config": {
+        "tau": 90,
+        "lambda": 0.25
+      }
+    },
+    "Fusión + actividad": {
+      "familia": "Fusión + actividad (original)",
+      "config": {
+        "alpha_LR": 0.5,
+        "compuerta": true,
+        "tau": 30,
+        "lambda": 0.5
+      }
+    },
+    "Mezcla ponderada + filtro": {
+      "familia": "Mezcla ponderada, filtro después",
+      "config": {
+        "alpha_LR": 0.75,
+        "tipo": "suave fijo",
+        "tau": 90,
+        "lambda": 0.25
+      }
+    },
+    "Mezcla por historial + filtro": {
+      "familia": "Mezcla por historial, filtro después",
+      "config": {
+        "tau": 90,
+        "lambda": 0.25
+      },
+      "alpha_por_tramo": {
+        "0": 0.25,
+        "1": 0.5,
+        "2": 0.75
+      }
+    },
+    "TF-IDF + suave fijo": {
+      "familia": "TF-IDF + suave fijo",
+      "config": {
+        "tau": 7,
+        "lambda": 1.0
+      }
+    },
+    "LR + suave aprendido": {
+      "familia": "LR + suave aprendido",
+      "config": {
+        "H": 30,
+        "lambda": 0.25
+      }
+    },
+    "TF-IDF + suave aprendido": {
+      "familia": "TF-IDF + suave aprendido",
+      "config": {
+        "H": 7,
+        "lambda": 1.0
+      }
+    }
+  },
+  "version_protocolo": 2,
+  "seleccion": {
+    "criterio": "MRR; nDCG@10 en empate; primera configuración enumerada en empate exacto.",
+    "P1": "2098 consultas hasta 2023-12-13; P2: 2110 desde 2023-12-14.",
+    "LR_y_TFIDF": "Parámetros elegidos en toda la validación dentro de las grillas ya exploradas.",
+    "fusion_original": "Alpha y compuerta elegidos en validación completa; después, filtro sobre su pool.",
+    "mezcla_ponderada": "Se conserva alpha=0.75 elegido en P1; filtro elegido en validación completa.",
+    "mezcla_historial": "Pesos 0:0.25, 1:0.50, 2+:0.75 coinciden en P1 y validación completa; filtro elegido en validación completa."
+  },
+  "ejecucion_final": {
+    "Mezcla ponderada + filtro": {
+      "compuerta": true
+    },
+    "Fusión + actividad": {
+      "RRF_c": 60.0
+    },
+    "desempate_LR_suave_fijo": "Orden original de ofertas (estable), como en validación.",
+    "desempate_otros": "Prioridad fija por oferta con semilla 42, como en validación.",
+    "actividad": "Eventos de días estrictamente anteriores; P(actividad) se reajusta solo en train oficial con ventanas completas."
+  },
+  "procedencia": {
+    "datos_sha256": {
+      "data/raw/candidates.csv": "4328ceb1678757ce19b62105e97cca70759f38c332bef13cf9746badbbf3f692",
+      "data/raw/jobs.csv": "5bcd9e4379e558b98418e2242d321757612a96887b934e0d3ece6eb4a9952628",
+      "data/raw/history.csv": "0348bb0017156a91fe40fdd4346846982587940a0796dae3941da55312ade2a3"
+    },
+    "codigo_oficial_sha256": {
+      "external/JTH/code/utils/binary_splitter.py": "62b44069fbd3ec09ddb3c490b3cd3a25f96f3640cf368126ec13d4c880e05bd3",
+      "external/JTH/code/utils/evaluator.py": "4f7f5a1fa1e823422ffc9acafd439bff9be2b85cf2ce41773277b4d44f59d393",
+      "external/JTH/code/baselines/feature_classifier_baseline.py": "a166192b428ff7adea2227ff22aad068c43cd0a9ae847d925bea91bfe713f9f1",
+      "external/JTH/code/baselines/hybrid_recency_cf_baseline.py": "500a93e99de7919f6d702467f123da94d65b32e621918b939d307506ea2ce6cd",
+      "external/JTH/code/baselines/past_temporal_baseline.py": "ce86fe4e41292dfdacfa56bb20b4f71343395339159cceedf3ac918eb226526d",
+      "external/JTH/code/baselines/random_baseline.py": "fdc854d7f56a0c90d23987e2524c09e0f9337e926e9abb78389fcc24968c2d9c",
+      "external/JTH/code/baselines/online_popularity_baseline.py": "0cd4e3431f881cdf4b7f6148cf9df60ed132174956db45ae1025914b2314ccbc"
+    },
+    "codigo_propio_sha256": {
+      "src/jth/__init__.py": "88ae70efc5357a20d0687f621b8da49bfb9f37a77224dec52e53f9a2ce3047f0",
+      "src/jth/activity.py": "acb4ca369850de59b3a1e700a82927f2d12fde6e0b0bab0293ba430caee3edf1",
+      "src/jth/activity_model.py": "6ad05ab7063863b9b40de6b49818edc4e747d05fba2e678cbcb8ec454fe87b29",
+      "src/jth/clean_cf.py": "f6aaeb7297af1ebc18beb3085e69f7781ff95b48a437732555b6490edcf1c9d8",
+      "src/jth/context.py": "70095ed02cc13dffcb899a9682a147c880702946c309b8eb1394d33d033a28dd",
+      "src/jth/data.py": "3fd6ae711784acc202f30f4ff0e0cfc80107a7a71e69c870be78185bac023d09",
+      "src/jth/evaluation.py": "521eec7170c8c90acf69669091f7803be910ccfaf2954a209ca2eb927f8e9ef9",
+      "src/jth/features.py": "b4392e4a33781d0dde16335d414846749eb1026f72f26dd4b2523aed01987c3c",
+      "src/jth/fusion.py": "e9e04946b01469ef94b3fdb95be8496943a943bd977802eed0f14aa7d5e2a2d3",
+      "src/jth/models.py": "7400ea11850c2e5845c8e1a651efb40b2ab1057a0409bf10a73c0c0664c3ef2d",
+      "src/jth/ranking.py": "cd37fe4f39a7e1d9b705cbf883ff6f313086e2ada6f10f877cdd1ee343e8d6ee",
+      "src/jth/systems.py": "8521ad479850059bc9b35659391074ef9e732b4ee33e238b6c9c60e31a9e5f81",
+      "src/jth/uncertainty.py": "ecf27de82366ec3e54df5046eda9ca57a5981ade8ea3291c369d325e05c15791",
+      "scripts/run_references.py": "470c4b672f11c33c36885e945e46abbab9b88035ca44b0144178befc5293d30d"
+    },
+    "versiones": {
+      "python": "3.12.16",
+      "numpy": "2.5.3",
+      "pandas": "3.0.6",
+      "sklearn": "1.9.1"
+    },
+    "inputs_validacion_sha256": "e5c1da35cb2ecd750495ea04712a105c337b279ef1cdeb5626dcf56778f618e2"
+  }
+}
